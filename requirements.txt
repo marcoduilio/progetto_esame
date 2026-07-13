@@ -1,0 +1,11 @@
+tensorflow
+opencv-python
+pandas
+jupyter
+numpy>=1.24
+matplotlib>=3.7
+scikit-fuzzy>=0.4.2
+jupyterlab>=4.0
+ipykernel>=6.0
+scipy
+networkx
