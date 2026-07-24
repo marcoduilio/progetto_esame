@@ -57,12 +57,3 @@ df['label'] = y_train
 df['label_name'] = [class_names[i] for i in y_train]
 print(df.head())"""
 
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from torchvision import datasets, transforms
-from PIL import Image
-import matplotlib.pyplot as plt
-import os
-
-
