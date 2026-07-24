@@ -1,59 +1,74 @@
-"""from sklearn.decomposition import PCA
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+import io
+import pathlib
+import zipfile
 import pandas as pd
-import numpy as np
-from keras.datasets import fashion_mnist
+from PIL import Image
+from torch.utils.data import Dataset, DataLoader
+from torchvision import transforms
+import torch
 
-# Carica il dataset Fashion-MNIST
-(X_train_full, y_train_full), (X_test, y_test) = fashion_mnist.load_data()
+DATA_DIR = pathlib.Path("dataset")
+ZIP_PATH = DATA_DIR / "abiti.zip"
+LABELS_PATH = DATA_DIR / "labels_corretti.cvs"
 
-# Normalizzazione dei pixel tra 0 e 1
-X_train_full = X_train_full.astype('float32') / 255.0
-X_test = X_test.astype('float32') / 255.0
+# Leggi il CSV dei label
+labels_df = pd.read_csv(LABELS_PATH)
+print(labels_df.head())
 
-# Appiattimento delle immagini 28x28 in vettori di 784 feature
-X_train_full_flat = X_train_full.reshape(len(X_train_full), -1)
-X_test_flat = X_test.reshape(len(X_test), -1)
+# Linea che mostra quanti e quali label ci sono
+print("Conteggio labels:")
+print(labels_df["sub_class"].value_counts())
 
-# Divisione train/validation
-X_train, X_val, y_train, y_val = train_test_split(
-    X_train_full_flat,
-    y_train_full,
-    test_size=0.2,
-    random_state=42,
-    stratify=y_train_full
-)
+# Mappa i label in indici numerici
+class_to_idx = {cls: i for i, cls in enumerate(sorted(labels_df["sub_class"].unique()))}
+labels_df["label"] = labels_df["sub_class"].map(class_to_idx)
 
-# Standardizzazione
-scaler = StandardScaler()
-X_train_std = scaler.fit_transform(X_train)
-X_val_std = scaler.transform(X_val)
-X_test_std = scaler.transform(X_test_flat)
+print("Classi disponibili:", class_to_idx)
 
-# PCA a 2 componenti
-pca = PCA(n_components=2, random_state=42)
-X_train_pca = pca.fit_transform(X_train_std)
-X_val_pca = pca.transform(X_val_std)
-X_test_pca = pca.transform(X_test_std)
+class ZipImageDataset(Dataset):
+    def __init__(self, zip_path, labels_csv, transform=None):
+        self.zip_path = zip_path
+        self.transform = transform
+        self.labels_df = pd.read_csv(labels_csv)
+        self.zip_file = zipfile.ZipFile(zip_path)
 
-print('Class labels:', np.unique(y_train_full))
-print('Explained variance ratio:', pca.explained_variance_ratio_)
+        # mappatura label -> id
+        self.class_to_idx = {
+            cls: i for i, cls in enumerate(sorted(self.labels_df["sub_class"].unique()))
+        }
+        self.labels_df["label"] = self.labels_df["sub_class"].map(self.class_to_idx)
 
-# Esempio di risultato in DataFrame
-result = pd.DataFrame({
-    'principal_component': ['PC1', 'PC2'],
-    'explained_variance_ratio': pca.explained_variance_ratio_
-})
-print(result)
+        self.file_list = self.labels_df["filename"].tolist()
+        self.targets = self.labels_df["label"].tolist()
 
-class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+    def __len__(self):
+        return len(self.file_list)
 
-print('Dataset labels:', np.unique(y_train_full))
-print('Dataset label names:', [class_names[label] for label in np.unique(y_train_full)])
+    def __getitem__(self, idx):
+        filename = self.file_list[idx]
+        label = self.targets[idx]
 
-df = pd.DataFrame(X_train_pca, columns=['PC1', 'PC2'])
-df['label'] = y_train
-df['label_name'] = [class_names[i] for i in y_train]
-print(df.head())"""
+        with self.zip_file.open(filename) as f:
+            image = Image.open(f).convert("RGB")
 
+        if self.transform is not None:
+            image = self.transform(image)
+
+        return image, label
+
+# Trasformazioni facoltative
+transform = transforms.Compose([
+    transforms.Resize((224, 224)),
+    transforms.ToTensor()
+])
+
+dataset = ZipImageDataset(ZIP_PATH, LABELS_PATH, transform=transform)
+
+print("Dataset creato con", len(dataset), "immagini")
+
+loader = DataLoader(dataset, batch_size=4, shuffle=True)
+
+for images, labels in loader:
+    print("Batch images:", images.shape)
+    print("Batch labels:", labels)
+    break
