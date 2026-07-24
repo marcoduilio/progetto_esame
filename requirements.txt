@@ -10,3 +10,4 @@ ipykernel>=6.0
 scipy
 networkx
 scikit-learn
+Pillow>=10.0.0

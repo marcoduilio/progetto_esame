@@ -1,4 +1,4 @@
-from sklearn.decomposition import PCA
+"""from sklearn.decomposition import PCA
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
@@ -55,4 +55,14 @@ print('Dataset label names:', [class_names[label] for label in np.unique(y_train
 df = pd.DataFrame(X_train_pca, columns=['PC1', 'PC2'])
 df['label'] = y_train
 df['label_name'] = [class_names[i] for i in y_train]
-print(df.head())
+print(df.head())"""
+
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from torchvision import datasets, transforms
+from PIL import Image
+import matplotlib.pyplot as plt
+import os
+
+
