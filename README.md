@@ -26,7 +26,7 @@ L'alorigmo si distingue in nelle seguenti porzioni che operano separatamente:
 - **requirements.txt**: che continene le librerie e le loro versioni che sono state utilizzate.
 - **stup_windows.bat**: un codice per windows che crea e attiva l'ambiente e installa le librerie del requirements.txt.
 - **armadio**: è una cartella vuota in cui caricare il proprio file contentente le immagini dei propri vestiti
-- **dataset**: è la cartella che costituisce il punto di riferimento del modello, tramite la quale è capace di classificare i vestiti. questo dataset è composta da un file zip contenente 5661 immagini di indumenti e un file csv che contiene i label di ogni immagine. 
+- **dataset**: è la cartella che costituisce il punto di riferimento del modello, tramite la quale è capace di classificare i vestiti. questo dataset è composta da un file zip contenente 5661 immagini di indumenti e un file csv che contiene i label di ogni immagine. Queste immagini sono state prese dal dataset Fashion.Mist con alcune modifiche (l'inclusione di classi aggiuntive). 
 
 ## Setup Linux/MaxOs
 
@@ -57,6 +57,8 @@ Per eseguire il codice le azioni da seguire, dopo aver setuppato l'ambiente, son
   1. importare nella cartella armadio le foto dei vestiti
   2. far eseguire il codice contenuto nel file classificatore.py
   3. far eseguire il codice contenuto nel file ----- dopo aver impostato le specifiche desiderate
+
+Per testare l'algoritmo sono stati messi a disposizione 3 "armadi" di prova diversi, è possibile scegliere con quale voler testare l'algoritmo o inserire il proprio e testarlo. ogni run dell'algorritmo salva i dati ottenuti per ogni armadio su cui viene utilizzato, ma in caso si utilizzi su un armadio su cui è gia stato applicato, il file precedente verrà sovrascritto. 
 
 ## Setup Windows rapido
 

@@ -16,6 +16,35 @@ ZIP_PATH = DATA_DIR / "abiti.zip"
 LABELS_PATH = DATA_DIR / "labels_corretti.csv"
 ARMADIO_DIR = Path("armadio")
 
+
+def select_armadio_folder(base_dir=ARMADIO_DIR):
+    if not base_dir.exists():
+        raise FileNotFoundError(f"Cartella non trovata: {base_dir}")
+
+    subfolders = sorted([p for p in base_dir.iterdir() if p.is_dir()], key=lambda p: p.name.lower())
+
+    if not subfolders:
+        print(f"Nessuna sottocartella trovata in {base_dir}. Uso la cartella principale.")
+        return base_dir
+
+    print("Seleziona l'armadio da classificare:")
+    for idx, folder in enumerate(subfolders, start=1):
+        print(f"{idx}. {folder.name}")
+
+    while True:
+        choice = input("Inserisci il numero dell'armadio: ").strip()
+        if not choice.isdigit():
+            print("Scelta non valida. Inserisci un numero.")
+            continue
+
+        selected_index = int(choice)
+        if 1 <= selected_index <= len(subfolders):
+            selected_folder = subfolders[selected_index - 1]
+            print(f"Armadio selezionato: {selected_folder.name}")
+            return selected_folder
+
+        print(f"Scelta non valida. Inserisci un numero tra 1 e {len(subfolders)}.")
+
 # in questa porzione del codice viene definita la funzione per risolvere il percorso del file delle etichette, restituendo il percorso corretto se esiste, altrimenti sollevando un'eccezione.
 def resolve_labels_path():
     if LABELS_PATH.exists():
@@ -170,7 +199,7 @@ class ClothingCNN(nn.Module):
         return self.fc2(x)
 
 #qui vengono specificate le cassi di abbigliamento che il modello può classificare, con un dizionario che associa ogni classe a un indice numerico.
-def build_supervised_model():
+def build_supervised_model(output_dir="risultati", armadio_name="armadio"):
     X, y, _ = load_training_features()
 
     class_to_idx = {cls: idx for idx, cls in enumerate(sorted(set(y)))}
@@ -285,7 +314,7 @@ def build_supervised_model():
     elapsed = time.time() - start_time
     print(f"Tempo totale stimato/effettivo: {elapsed:.1f} secondi")
 
-    plot_training_history(history)
+    plot_training_history(history, output_dir=output_dir, armadio_name=armadio_name)
 
     return model, class_to_idx, history
 
@@ -297,20 +326,21 @@ def get_macro_category(label):
     return "non assegnata"
 
 
-#salva le predizioni in un file csv, con tre colonne: il nome del file, l'etichetta predetta e la macroetichetta.
-def save_predictions_csv(results, output_dir="risultati"):
-    output_path = Path(output_dir) / "armadio_classificato.csv"
+#salva le predizioni in un file csv, con quattro colonne: armadio, nome del file, etichetta predetta e macroetichetta.
+def save_predictions_csv(results, armadio_name, output_dir="risultati"):
+    output_path = Path(output_dir) / f"{armadio_name} classificato.csv"
     output_path.parent.mkdir(exist_ok=True)
 
-    df = pd.DataFrame(results, columns=["filename", "label", "macroetichetta"])
+    df = pd.DataFrame(results, columns=["armadio", "filename", "label", "macroetichetta"])
     df.to_csv(output_path, index=False)
     print(f"File CSV salvato in: {output_path}")
     return output_path
 
 # crea un'immagine con i vestiti dell'armadio e le rispettive etichette e macroetichette.
-def classify_armadio(output_dir="risultati"):
-    model, class_to_idx, history = build_supervised_model()
-    X_test, names = load_folder_features(ARMADIO_DIR)
+def classify_armadio(output_dir="risultati", armadio_path=ARMADIO_DIR):
+    armadio_name = armadio_path.name
+    model, class_to_idx, history = build_supervised_model(output_dir=output_dir, armadio_name=armadio_name)
+    X_test, names = load_folder_features(armadio_path)
 
     if len(X_test) == 0:
         print("Nessuna immagine trovata nella cartella armadio")
@@ -332,14 +362,14 @@ def classify_armadio(output_dir="risultati"):
 
     for image_name, label in zip(names, predicted_labels):
         macro_label = get_macro_category(label)
-        results.append((image_name, label, macro_label))
+        results.append((armadio_name, image_name, label, macro_label))
 
-        image_path = ARMADIO_DIR / image_name
+        image_path = armadio_path / image_name
         if image_path.exists():
             img = Image.open(image_path).convert("RGB")
             display_items.append((img, label, macro_label))
 
-    save_predictions_csv(results, output_dir=output_dir)
+    save_predictions_csv(results, armadio_name=armadio_name, output_dir=output_dir)
 
     if display_items:
         grouped_items = {macro_label: [] for macro_label in MACRO_CATEGORY_MAP}
@@ -395,7 +425,7 @@ def classify_armadio(output_dir="risultati"):
                 ax.axis("off")
 
         fig.subplots_adjust(wspace=0.30, hspace=0.42, top=0.98, bottom=0.03)
-        output_file = output_path / "classified_clothes.png"
+        output_file = output_path / f"foto vestiti {armadio_name} classificati.png"
         plt.savefig(output_file, dpi=320, bbox_inches="tight", facecolor="white")
         plt.close(fig)
         print(f"Immagine finale salvata in: {output_file}")
@@ -404,7 +434,7 @@ def classify_armadio(output_dir="risultati"):
 
 # in questa porzione di codice viene definita la funzione per plottare la storia dell'addestramento, mostrando l'andamento della loss e dell'accuracy sia per il training che per la validazione.
 
-def plot_training_history(history):
+def plot_training_history(history, output_dir="risultati", armadio_name="armadio"):
     if not history:
         return
 
@@ -431,7 +461,7 @@ def plot_training_history(history):
     axes[1].grid(True, alpha=0.3)
 
     plt.tight_layout()
-    output_path = Path("risultati") / "training_history.png"
+    output_path = Path(output_dir) / f"training history {armadio_name} classificato.png"
     output_path.parent.mkdir(exist_ok=True)
     plt.savefig(output_path, dpi=200, bbox_inches="tight")
     plt.close(fig)
@@ -439,6 +469,8 @@ def plot_training_history(history):
 
 
 if __name__ == "__main__":
-    results = classify_armadio()
-    for name, label, macro_label in results:
-        print(f"{name}: {label} ({macro_label})")
+    selected_armadio = select_armadio_folder()
+    output_dir = f"risultati {selected_armadio.name}"
+    results = classify_armadio(output_dir=output_dir, armadio_path=selected_armadio)
+    for armadio_name, name, label, macro_label in results:
+        print(f"[{armadio_name}] {name}: {label} ({macro_label})")
