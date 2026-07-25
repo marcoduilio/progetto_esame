@@ -2,7 +2,7 @@
 
 Questa repository contiene un algoritmo grado di riconoscere ed abbinare vestiti, valido per il progetto d'esame di Laura De Vita e Duilio Marco. Il modello ha due funzioni distinte:
 
-- utilizzare le reti neurali per classificare i vestiti in in 5 marco categorie con rispettive sottocategorie:
+- utilizzare le reti neurali per classificare i vestiti in 5 macro categorie con rispettive sottocategorie:
     1. **Giubbini**: blazer, giacca in pelle,  giacchetta, giubbino invernale, giubbino leggero, montgomery;
     2. **magliette**: body, camicia a maniche corte, camicia a maniche lunghe, dolce vita, felpa, maglietta a maniche corte, maglietta a maniche lunghe, pullover, tank top, top;
     3. **pantaloni**: jeans, pantaloncino, pantaloncino, pantalone formale, salopette corta, salopette lunga;
@@ -24,6 +24,7 @@ L'alorigmo si distingue in nelle seguenti porzioni che operano separatamente:
 - inserisci parte file fuzzy logic / algoritmi evolutivi
 
 - **requirements.txt**: che continene le librerie e le loro versioni che sono state utilizzate.
+- **stup_windows.bat**: un codice per windows che crea e attiva l'ambiente e installa le librerie del requirements.txt.
 - **armadio**: è una cartella vuota in cui caricare il proprio file contentente le immagini dei propri vestiti
 - **dataset**: è la cartella che costituisce il punto di riferimento del modello, tramite la quale è capace di classificare i vestiti. questo dataset è composta da un file zip contenente 5661 immagini di indumenti e un file csv che contiene i label di ogni immagine. 
 
@@ -45,13 +46,10 @@ py -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-Poi aprire `codice.py`.
+Se PowerShell blocca l'attivazione con un errore di Execution Policy, è possibile usare invece il file `setup_windows.bat` dalla cartella del progetto: crea l'ambiente solo se manca, riusa un `.venv` già presente e installa le dipendenze senza passare da `Activate.ps1`. In PowerShell esegui:
 
-Per mostrare tutte le possibili opzioni:
+.\setup_windows.bat
 
-```bash
-python3 onemax_deap.py --help
-```
 
 ## Funzionamento
 
@@ -59,6 +57,16 @@ Per eseguire il codice le azioni da seguire, dopo aver setuppato l'ambiente, son
   1. importare nella cartella armadio le foto dei vestiti
   2. far eseguire il codice contenuto nel file classificatore.py
   3. far eseguire il codice contenuto nel file ----- dopo aver impostato le specifiche desiderate
+
+## Setup Windows rapido
+
+Da Prompt dei comandi o con doppio click su Windows, eseguire `setup_windows.bat` nella cartella del progetto. In questo modo:
+
+1. viene creato `.venv` se non esiste già;
+2. viene attivato l'ambiente con lo script `.bat` di Windows;
+3. vengono installate tutte le dipendenze di `requirements.txt`.
+
+Questo evita il problema di PowerShell per chi scarica il progetto da GitHub e vuole una procedura immediata.
 
 ## Conclusioni
 Dunuque, lo scopo di questo algoritmo è facilitare l'utente nella "stressante" scelta dell'abbigliamento da indossare, catalogando l'armadio in sezioni di più semplice consultazione e fornendo combiazioni di indumenti secondo le sue esigenze.
