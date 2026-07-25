@@ -3,15 +3,15 @@
 Questa repository contiene un algoritmo grado di riconoscere ed abbinare vestiti, valido per il progetto d'esame di Laura De Vita e Duilio Marco. Il modello ha due funzioni distinte:
 
 - utilizzare le reti neurali per classificare i vestiti in in 5 marco categorie con rispettive sottocategorie:
-    1. <u>Giubbini</u>: blazer, giacca in pelle,  giacchetta, giubbino invernale, giubbino leggero, montgomery;
-    2. <u>magliette</u>: body, camicia a maniche corte, camicia a maniche lunghe, dolce vita, felpa, maglietta a maniche corte, maglietta a maniche lunghe, pullover, tank top, top;
-    3. <u>pantaloni</u>: jeans, pantaloncino, pantaloncino, pantalone formale, salopette corta, salopette lunga;
-    4. <u>vestiti</u>: mini vestito, mini vestito a bretelle, mini vestito a maniche lunghe, vestito da sera, vestito da sera a maniche lunghe, vestito intero, vestito intero a bretelle, vestito intero a maniche lunghe;
-    5. <u>scarpe</u>: ciabatte, sandali classici, sandali con tacco, scarpe da ginnastica, stivaletti, stivali, stivali con tacco, stivali invernali.
+    1. <Giubbini>: blazer, giacca in pelle,  giacchetta, giubbino invernale, giubbino leggero, montgomery;
+    2. <magliette>: body, camicia a maniche corte, camicia a maniche lunghe, dolce vita, felpa, maglietta a maniche corte, maglietta a maniche lunghe, pullover, tank top, top;
+    3. <pantaloni>: jeans, pantaloncino, pantaloncino, pantalone formale, salopette corta, salopette lunga;
+    4. <vestiti>: mini vestito, mini vestito a bretelle, mini vestito a maniche lunghe, vestito da sera, vestito da sera a maniche lunghe, vestito intero, vestito intero a bretelle, vestito intero a maniche lunghe;
+    5. <scarpe>: ciabatte, sandali classici, sandali con tacco, scarpe da ginnastica, stivaletti, stivali, stivali con tacco, stivali invernali.
 - tramite la fuzzy logic/ un algoritmo evolutivo aiuta l'user a trovare la migiore combinazione di indumenti secondo i seguenti parametri: 
-    1. <u>meteo</u>: 
-    2. <u>stagione</u>: 
-    3. <u>stile</u>;
+    1. <meteo>: 
+    2. <stagione>: 
+    3. <stile>;
 
 ## Struttura della Repository
 
