@@ -53,4 +53,12 @@ Per mostrare tutte le possibili opzioni:
 python3 onemax_deap.py --help
 ```
 
-## Output previsto
+## Funzionamento
+
+Per eseguire il codice le azioni da seguire, dopo aver setuppato l'ambiente, sono le senguenti:
+  1. importare nella cartella armadio le foto dei vestiti
+  2. far eseguire il codice contenuto nel file classificatore.py
+  3. far eseguire il codice contenuto nel file ----- dopo aver impostato le specifiche desiderate
+
+## Conclusioni
+Dunuque, lo scopo di questo algoritmo è facilitare l'utente nella "stressante" scelta dell'abbigliamento da indossare, catalogando l'armadio in sezioni di più semplice consultazione e fornendo combiazioni di indumenti secondo le sue esigenze.
