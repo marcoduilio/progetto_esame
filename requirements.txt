@@ -11,3 +11,5 @@ scipy
 networkx
 scikit-learn
 Pillow>=10.0.0
+torch
+torchvision
