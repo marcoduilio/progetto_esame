@@ -16,18 +16,20 @@ ZIP_PATH = DATA_DIR / "abiti.zip"
 LABELS_PATH = DATA_DIR / "labels_corretti.csv"
 ARMADIO_DIR = Path("armadio")
 
-
+# in questa porzione del codice viene definita la funzione per risolvere il percorso del file delle etichette, restituendo il percorso corretto se esiste, altrimenti sollevando un'eccezione.
 def resolve_labels_path():
     if LABELS_PATH.exists():
         return LABELS_PATH
 
-    fallback = LABELS_PATH.with_suffix(".cvs")
+    fallback = LABELS_PATH.with_suffix(".csv")
     if fallback.exists():
         return fallback
 
     raise FileNotFoundError(
         f"File etichette non trovato: {LABELS_PATH} o {fallback}"
     )
+
+#in questa porzione del codice viene definito un dizionario che mappa le classi di abbigliamento in macro-categorie.
 
 MACRO_CATEGORY_MAP = {
     "Giubbini": {
@@ -80,7 +82,7 @@ MACRO_CATEGORY_MAP = {
     },
 }
 
-#in questa porzione vengono estratte le carattestiche delle immagini.
+#in questa porzione vengono estratte le caratteristiche delle immagini.
 def extract_image_features(img):
     img = img.convert("L")
     img = img.resize((44, 44))
@@ -121,7 +123,7 @@ def load_training_features():
     X = np.stack(images)
     return X, np.array(labels), np.array(names)
 
-
+# 
 def load_folder_features(folder):
     if not folder.exists():
         return [], []
@@ -305,7 +307,7 @@ def save_predictions_csv(results, output_dir="risultati"):
     print(f"File CSV salvato in: {output_path}")
     return output_path
 
-# crea un'immagine con i vestiti dell'armadio e le rispettive etichette predette
+# crea un'immagine con i vestiti dell'armadio e le rispettive etichette e macroetichette.
 def classify_armadio(output_dir="risultati"):
     model, class_to_idx, history = build_supervised_model()
     X_test, names = load_folder_features(ARMADIO_DIR)

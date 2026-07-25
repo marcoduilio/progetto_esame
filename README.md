@@ -1,16 +1,31 @@
-# progetto_esame
+# progetto_"come mi vesto?"
 
-Questa repository contiene un algoritmo di machine learning unito ad uno di fuzzy logic in
-grado di riconoscere ed abbinare vestiti, valido per il progetto d'esame di Laura De Vita e Duilio Marco. 
+Questa repository contiene un algoritmo grado di riconoscere ed abbinare vestiti, valido per il progetto d'esame di Laura De Vita e Duilio Marco. Il modello ha due funzioni distinte:
 
-Esso è stato scritto da noi e pubblicato su GitHub per essere poi eseguito su un qualsiasi altro dispositivo. 
+- utilizzare le reti neurali per classificare i vestiti in in 5 marco categorie con rispettive sottocategorie:
+    1. <u>Giubbini</u>: blazer, giacca in pelle,  giacchetta, giubbino invernale, giubbino leggero, montgomery;
+    2. <u>magliette</u>: body, camicia a maniche corte, camicia a maniche lunghe, dolce vita, felpa, maglietta a maniche corte, maglietta a maniche lunghe, pullover, tank top, top;
+    3. <u>pantaloni</u>: jeans, pantaloncino, pantaloncino, pantalone formale, salopette corta, salopette lunga;
+    4. <u>vestiti</u>: mini vestito, mini vestito a bretelle, mini vestito a maniche lunghe, vestito da sera, vestito da sera a maniche lunghe, vestito intero, vestito intero a bretelle, vestito intero a maniche lunghe;
+    5. <u>scarpe</u>: ciabatte, sandali classici, sandali con tacco, scarpe da ginnastica, stivaletti, stivali, stivali con tacco, stivali invernali.
+- tramite la fuzzy logic/ un algoritmo evolutivo aiuta l'user a trovare la migiore combinazione di indumenti secondo i seguenti parametri: 
+    1. <u>meteo</u>: 
+    2. <u>stagione</u>: 
+    3. <u>stile</u>;
 
 ## Struttura della Repository
 
-La repositoty è organizzata in:
+L'alorigmo si distingue in nelle seguenti porzioni che operano separatamente:
 
-- `codice.py`: che continene il codice dell'algoritmo scritto e testato;
-- `requirements.txt`: che continene le librerie e le loro versioni che abbiamo utilizzato;
+- **classificatore.py**: che continene il codice relativo alla classificazione degli indumenti. il suo input sarà una qualsisi serie di immagini di vestiti inserite nella cartella "armadio" e il suo output è composto da due file:
+    1. <u>"armadio_classificato.csv"</u>: esso conterrà 3 colonne, la oprima è il nome della foto, la seconda la categoria in cui è stata classificata e la terza è la sua macro categoria
+    2. <u>"classified_clothes"</u>: che consiste in un collage delle varie foto dei vestiti con le rispettive categorie e ragguppate nelle rispettive macrocategorie.
+
+- inserisci parte file fuzzy logic / algoritmi evolutivi
+
+- **requirements.txt**: che continene le librerie e le loro versioni che sono state utilizzate.
+- **armadio**: è una cartella vuota in cui caricare il proprio file contentente le immagini dei propri vestiti
+- **dataset**: è la cartella che costituisce il punto di riferimento del modello, tramite la quale è capace di classificare i vestiti. questo dataset è composta da un file zip contenente 5661 immagini di indumenti e un file csv che contiene i label di ogni immagine. 
 
 ## Setup Linux/MaxOs
 
@@ -39,5 +54,3 @@ python3 onemax_deap.py --help
 ```
 
 ## Output previsto
-
-avremo una classificazione dell'armadio e in base all'esigenze dell'user, delle opzioni di conbinazione di vestiti adeguate.
