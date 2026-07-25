@@ -3,23 +3,23 @@
 Questa repository contiene un algoritmo grado di riconoscere ed abbinare vestiti, valido per il progetto d'esame di Laura De Vita e Duilio Marco. Il modello ha due funzioni distinte:
 
 - utilizzare le reti neurali per classificare i vestiti in in 5 marco categorie con rispettive sottocategorie:
-    1. <Giubbini>: blazer, giacca in pelle,  giacchetta, giubbino invernale, giubbino leggero, montgomery;
-    2. <magliette>: body, camicia a maniche corte, camicia a maniche lunghe, dolce vita, felpa, maglietta a maniche corte, maglietta a maniche lunghe, pullover, tank top, top;
-    3. <pantaloni>: jeans, pantaloncino, pantaloncino, pantalone formale, salopette corta, salopette lunga;
-    4. <vestiti>: mini vestito, mini vestito a bretelle, mini vestito a maniche lunghe, vestito da sera, vestito da sera a maniche lunghe, vestito intero, vestito intero a bretelle, vestito intero a maniche lunghe;
-    5. <scarpe>: ciabatte, sandali classici, sandali con tacco, scarpe da ginnastica, stivaletti, stivali, stivali con tacco, stivali invernali.
+    1. **Giubbini**: blazer, giacca in pelle,  giacchetta, giubbino invernale, giubbino leggero, montgomery;
+    2. **magliette**: body, camicia a maniche corte, camicia a maniche lunghe, dolce vita, felpa, maglietta a maniche corte, maglietta a maniche lunghe, pullover, tank top, top;
+    3. **pantaloni**: jeans, pantaloncino, pantaloncino, pantalone formale, salopette corta, salopette lunga;
+    4. **vestiti**: mini vestito, mini vestito a bretelle, mini vestito a maniche lunghe, vestito da sera, vestito da sera a maniche lunghe, vestito intero, vestito intero a bretelle, vestito intero a maniche lunghe;
+    5. **scarpe**: ciabatte, sandali classici, sandali con tacco, scarpe da ginnastica, stivaletti, stivali, stivali con tacco, stivali invernali.
 - tramite la fuzzy logic/ un algoritmo evolutivo aiuta l'user a trovare la migiore combinazione di indumenti secondo i seguenti parametri: 
-    1. <meteo>: 
-    2. <stagione>: 
-    3. <stile>;
+    1. **meteo**: 
+    2. **stagione**: 
+    3. **stile**;
 
 ## Struttura della Repository
 
 L'alorigmo si distingue in nelle seguenti porzioni che operano separatamente:
 
 - **classificatore.py**: che continene il codice relativo alla classificazione degli indumenti. il suo input sarà una qualsisi serie di immagini di vestiti inserite nella cartella "armadio" e il suo output è composto da due file:
-    1. <u>"armadio_classificato.csv"</u>: esso conterrà 3 colonne, la oprima è il nome della foto, la seconda la categoria in cui è stata classificata e la terza è la sua macro categoria
-    2. <u>"classified_clothes"</u>: che consiste in un collage delle varie foto dei vestiti con le rispettive categorie e ragguppate nelle rispettive macrocategorie.
+    1. *"armadio_classificato.csv"*: esso conterrà 3 colonne, la oprima è il nome della foto, la seconda la categoria in cui è stata classificata e la terza è la sua macro categoria
+    2. *"classified_clothes"*: che consiste in un collage delle varie foto dei vestiti con le rispettive categorie e ragguppate nelle rispettive macrocategorie.
 
 - inserisci parte file fuzzy logic / algoritmi evolutivi
 
