@@ -22,7 +22,7 @@ L'alorigmo è composto dalle seguenti seguenti porzioni:
     2. *"classified_clothes"*: che consiste in un collage delle varie foto dei vestiti con le rispettive categorie e ragguppate nelle rispettive macrocategorie.
 - **stilista.py**: che contiene il codice relativo al creare combinazioni di indumenti ottimali. Il suo input saranno: il file l'armadio classificato dal classificatore e le informazioni relative alle esigenze dell'utente. Mentre l'output sarà un file contenente i 3 outfit migliori trovati.
 - **requirements.txt**: che continene le librerie e le loro versioni che sono state utilizzate.
-- **armadio**: è una cartella vuota in cui caricare il proprio file contentente le immagini dei propri vestiti
+- **armadio**: è una cartella vuota in cui caricare il proprio file contentente le immagini dei propri vestiti. 
 - **dataset**: è la cartella che costituisce il punto di riferimento del modello, tramite la quale è capace di classificare i vestiti. questo dataset è composta da un file zip contenente 5661 immagini di indumenti e un file csv che contiene i label di ogni immagine.
 
 ## Setup Linux/MaxOs
@@ -54,9 +54,9 @@ e poi ripetere:
 ## Funzionamento
 
 Per eseguire il codice le azioni da seguire, dopo aver setuppato l'ambiente, sono le senguenti:
-  1. importare nella cartella armadio le foto dei vestiti
+  1. importare nella cartella armadio le foto dei vestiti. Il file contenente le foto andrà chiamato "armadio_n", con n un qualsiasi numero intero.
   2. far eseguire il codice contenuto nel file classificatore.py
-  3. far eseguire il codice contenuto nel file ----- dopo aver impostato le specifiche desiderate
+  3. far eseguire il codice contenuto nel file stilista.py dopo aver impostato le specifiche desiderate
 
 Per testare l'algoritmo sono stati messi a disposizione 3 "armadi" di prova diversi, è possibile scegliere con quale voler testare l'algoritmo o inserire il proprio e testarlo. ogni run dell'algorritmo salva i dati ottenuti per ogni armadio su cui viene utilizzato, ma in caso si utilizzi su un armadio su cui è gia stato applicato, il file precedente verrà sovrascritto. 
 
