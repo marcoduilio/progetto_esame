@@ -11,19 +11,19 @@ Questa repository contiene un algoritmo grado di riconoscere ed abbinare vestiti
 - Aiutare, tramite un algoritmo evolutivo, l'user a trovare la migiore combinazione di indumenti secondo i seguenti parametri: 
     1. **meteo**: soleggiato, ventoso, piovoso, nevoso e nuvoloso;
     2. **stagione**: inverno, primavera, estate e autunno;
-    3. **stile**; professionale, smart casual,  casual, semi elegante, elegante, sportivo e glamour 
+    3. **stile**; professionale, smart casual,  casual, elegante, sportivo e glamour 
 
 ## Struttura della Repository
 
 L'alorigmo è composto dalle seguenti seguenti porzioni:
 
-- **classificatore.py**: che continene il codice relativo alla classificazione degli indumenti. il suo input sarà una qualsisi serie di immagini di vestiti inserite nella cartella "armadio" e il suo output è composto da due file:
-    1. *"armadio_classificato.csv"*: esso conterrà 3 colonne, la oprima è il nome della foto, la seconda la categoria in cui è stata classificata e la terza è la sua macro categoria
+- **classificatore.py**: che continene il codice relativo alla classificazione degli indumenti. Il suo input sarà una serie di immagini di vestiti inserite nella cartella "armadio" e il suo output è composto da due file:
+    1. *"armadio_classificato.csv"*: esso conterrà 3 colonne, la prima è il nome della foto, la seconda la categoria in cui è stata classificata e la terza è la sua macro categoria
     2. *"classified_clothes"*: che consiste in un collage delle varie foto dei vestiti con le rispettive categorie e ragguppate nelle rispettive macrocategorie.
-- **stilista.py**: che contiene il codice relativo al creare combinazioni di indumenti ottimali. Il suo input saranno: il file l'armadio classificato dal classificatore e le informazioni relative alle esigenze dell'utente. Mentre l'output sarà un file contenente i 3 outfit migliori trovati.
+- **stilista.py**: che contiene il codice relativo al creare combinazioni di indumenti ottimali. I sui input saranno: il file l'armadio classificato dal classificatore e le informazioni relative alle esigenze dell'utente. Mentre l'output sarà un file contenente i 3 outfit migliori trovati sia per i vestiti che per la combinazione maglietta + pantalone.
 - **requirements.txt**: che continene le librerie e le loro versioni che sono state utilizzate.
-- **armadio**: è una cartella vuota in cui caricare il proprio file contentente le immagini dei propri vestiti. 
-- **dataset**: è la cartella che costituisce il punto di riferimento del modello, tramite la quale è capace di classificare i vestiti. questo dataset è composta da un file zip contenente 5661 immagini di indumenti e un file csv che contiene i label di ogni immagine.
+- **armadio**: è una cartella in cui caricare il  file contentente le immagini dei vestiti. 
+- **dataset**: è la cartella che costituisce il punto di riferimento del modello, tramite la quale è capace di classificare i vestiti. È composta da un file zip contenente 5661 immagini di indumenti, un file csv che contiene i label di ogni immagine e un'altro file cvs dove a ogni label è associato un certo punteggio in base ai parametri scritti sopra (meteo, stagione, stile)
 
 ## Setup Linux/MaxOs
 
@@ -58,8 +58,8 @@ Per eseguire il codice le azioni da seguire, dopo aver setuppato l'ambiente, son
   2. far eseguire il codice contenuto nel file classificatore.py
   3. far eseguire il codice contenuto nel file stilista.py dopo aver impostato le specifiche desiderate
 
-Per testare l'algoritmo sono stati messi a disposizione 3 "armadi" di prova diversi, è possibile scegliere con quale voler testare l'algoritmo o inserire il proprio e testarlo. ogni run dell'algorritmo salva i dati ottenuti per ogni armadio su cui viene utilizzato, ma in caso si utilizzi su un armadio su cui è gia stato applicato, il file precedente verrà sovrascritto. 
+Per testare l'algoritmo sono stati messi a disposizione 3 "armadi" di prova diversi. Ogni run dell'algorritmo salva i dati ottenuti per ogni armadio su cui viene utilizzato, ma in caso si utilizzi su un armadio su cui è gia stato applicato, il file precedente verrà sovrascritto. 
 
 ## Conclusioni
 
-Dunuque, lo scopo di questo algoritmo è facilitare l'utente nella "stressante" scelta dell'abbigliamento da indossare, catalogando l'armadio in sezioni di più semplice consultazione e fornendo combiazioni di indumenti secondo le sue esigenze.
+Lo scopo di questo algoritmo è facilitare l'utente nella "stressante" scelta dell'abbigliamento da indossare, catalogando l'armadio in sezioni di più semplice consultazione e fornendo combiazioni di indumenti secondo le sue esigenze.

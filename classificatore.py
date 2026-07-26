@@ -10,7 +10,7 @@ import torch
 import torch.nn as nn
 from PIL import Image
 
-#in questa porzione del codice viene definito il dataset utilizzando i file importati da noi
+#in questa porzione del codice viene definito il dataset utilizzando i file importati. 
 DATA_DIR = Path("dataset")
 ZIP_PATH = DATA_DIR / "abiti.zip"
 LABELS_PATH = DATA_DIR / "labels_corretti.csv"
@@ -45,7 +45,8 @@ def select_armadio_folder(base_dir=ARMADIO_DIR):
 
         print(f"Scelta non valida. Inserisci un numero tra 1 e {len(subfolders)}.")
 
-# in questa porzione del codice viene definita la funzione per risolvere il percorso del file delle etichette, restituendo il percorso corretto se esiste, altrimenti sollevando un'eccezione.
+# in questa porzione del codice viene definita la funzione per risolvere il percorso del file delle etichette, 
+# restituendo il percorso corretto se esiste, altrimenti sollevando un'eccezione.
 def resolve_labels_path():
     if LABELS_PATH.exists():
         return LABELS_PATH
@@ -133,7 +134,8 @@ def extract_image_features(img):
     features = np.concatenate([flat, [pooled, std, gradients, edge_strength], hist])
     return features.astype(np.float32)
 
-# in questa porzione vengono caricate le caratteristiche delle immagini da una cartella specificata, restituendo le caratteristiche e i nomi dei file.
+# in questa porzione vengono caricate le caratteristiche delle immagini da una cartella specificata, 
+# restituendo le caratteristiche e i nomi dei file.
 def load_training_features():
     labels_df = pd.read_csv(resolve_labels_path())
     with zipfile.ZipFile(ZIP_PATH) as zf:
@@ -152,7 +154,6 @@ def load_training_features():
     X = np.stack(images)
     return X, np.array(labels), np.array(names)
 
-# 
 def load_folder_features(folder):
     if not folder.exists():
         return [], []
@@ -175,7 +176,9 @@ def load_folder_features(folder):
 
     return np.stack(features), names
 
-#qui viene definita la rete neurale convoluzionale per la classificazione degli abiti, con due strati convoluzionali, due strati di pooling, uno strato completamente connesso e uno strato di dropout per prevenire l'overfitting.
+#qui viene definita la rete neurale per la classificazione degli abiti, 
+# con due strati convoluzionali, due strati di pooling, 
+# uno strato completamente connesso e uno strato di dropout per prevenire l'overfitting.
 class ClothingCNN(nn.Module):
     def __init__(self, num_classes=38):
         super().__init__()
@@ -432,7 +435,8 @@ def classify_armadio(output_dir="risultati", armadio_path=ARMADIO_DIR):
 
     return results
 
-# in questa porzione di codice viene definita la funzione per plottare la storia dell'addestramento, mostrando l'andamento della loss e dell'accuracy sia per il training che per la validazione.
+# in questa porzione di codice viene definita la funzione per plottare la storia dell'addestramento, 
+# mostrando l'andamento della loss e dell'accuracy sia per il training che per la validazione.
 
 def plot_training_history(history, output_dir="risultati", armadio_name="armadio"):
     if not history:
